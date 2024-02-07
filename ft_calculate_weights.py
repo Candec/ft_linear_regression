@@ -3,42 +3,51 @@ import string
 from libft import csv_list
 
 
-def tetha0(data :list):
+def w0(data :list):
 	total :float
 
-	for i in list:
-		E_price = i[0] - i[1]
+	for i in data:
+		E_price = float(i[0]) - float(i[1])
+		total = 0
 		total = total + E_price
-	return (tetha0)
+	return (total)
 
-def tetha1(data :list):
+def w1(data :list):
 	total :float
 
-	for i in list:
-		E_price = (i[0] - i[1]) * i[0]
+	for i in data:
+		E_price = (float(i[0]) - float(i[1])) * float(i[0])
+		total = 0
 		total = total + E_price
-	return (tetha1)
+	return (total)
 
-if __name__ == '__main__':
-	def ft_calculate_weights(path :string):
-		if (sys.argc != 2):
-			print("Wrong number of arguments\n")
-			exit(1)
 
-		data = csv_list(path)
+def ft_calculate_weights(path :string):
+	if (len(sys.argv) != 2):
+		print("Error: Wrong number of arguments")
+		exit(1)
 
-		if data.empty():
-			print ("Error importing data\n")
-			return ([0, 0])
-			exit(1)
-		
-		alpha = 3				# Learning rate
-		m = data.size() - 1		# Sample size
-		intersective :float		# Starting point of f(x)
-		step :float				# Stepeness of f(x)
+	data = csv_list(path)
 
-		tetha0 = alpha * (1 / m) * tetha0()
-		tetha1 = alpha * (1 / m) * tetha1()
+	if len(data) == 0:
+		print ("Error: Importing data")
+		return ([0, 0])
+	
+	if (data[0][0] != "km" and data[0][1] != "price"):
+		print ("Error: Invalid format")
+		return ([0, 0])
+	
+	del data[0]
+	
+	alpha = 3				# Learning rate
+	m = len(data) - 1		# Sample size
+	intersective :float		# Starting point of f(x)
+	step :float				# Stepeness of f(x)
 
-		return ([tetha0, tetha1])
+	tetha0 = 0
+	tetha1 = 0
+	tetha0 = alpha * (1 / m) * w0(data)
+	tetha1 = alpha * (1 / m) * w1(data)
+
+	return ([tetha0, tetha1])
 	

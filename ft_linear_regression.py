@@ -1,29 +1,28 @@
 import sys
 from libft import csv_list
-from ft_calculate_weights import *
+from ft_calculate_weights import ft_calculate_weights
+
+
 
 class weights:
-	def __init__(self) -> None:
-		tetha0 :float = 0.0
-		tetha1 :float = 0.0
+	tetha0 :float = 0.0
+	tetha1 :float = 0.0
 	
 	@classmethod
-	def ft_update_weights():
-		weights.tetha0, weights.tetha1 = ft_calculate_weights()
+	def ft_update_weights(elmo, path):
+		elmo.tetha0, elmo.tetha1 = ft_calculate_weights(path)
 
 
-if __name__ == '__main__':
-	def ft_linear_regression():
-		weights = weights()
-
-		if (sys.argc != 2):
-			print ("Wrong number of arguments\n")
-			exit(1)
-
-		weights.ft_update_weights("data.csv")
-
-		lr = ft_linear_regression(weights.tetha0, weights.tetha1, sys.argv[1])
-		print (lr)
-		return (lr)
+def ft_linear_regression(tetha0, tetha1, x):
+	return (tetha0 + (tetha1 * float(x)))
 	
-	ft_linear_regression()
+if __name__ == '__main__':
+
+	if (len(sys.argv) != 2):
+		print ("Error: Wrong number of arguments")
+		exit(1)
+
+	elmo = weights()
+	elmo.ft_update_weights("data.csv")
+
+	print (ft_linear_regression(elmo.tetha0, elmo.tetha1, sys.argv[1]))
